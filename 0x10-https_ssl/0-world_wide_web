@@ -1,26 +1,31 @@
 #!/usr/bin/env bash
-# Bash script that will display information about subdomains.
-function domain_check {
-	domain_names=("www" "lb-01" "web-01" "web-02")
 
-	for i in "${domain_names[@]}";
-	do
-		dig "${i}"."$1" | grep -A1 'ANSWER SECTION:' | \
-		awk 'FNR == 2 {printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$i"
-	done
+# Function to display subdomain information
+function display_subdomain_info() {
+  local domain="$1"
+  local subdomain="${2:-$domain}"  # Set subdomain to domain if not provided
+
+  # Use dig to query the A record and extract information
+  local record_type=$(dig +short A "$subdomain.$domain" | awk '{print $NF}')
+  local destination=$(dig +short A "$subdomain.$domain" | awk '{print $1}')
+
+  # Check if record exists and print output
+  if [[ -n "$record_type" && -n "$destination" ]]; then
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+  else
+    echo "Error: Subdomain '$subdomain' not found for domain '$domain'."
+  fi
 }
 
-function subdomain_check {
-	dig "${2}"."$1" | grep -A1 'ANSWER SECTION:' | \
-	awk 'FNR == 2 {printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$2"
-}
+# Validate arguments
+if [ $# -lt 1 ]; then
+  echo "*** Please provide a domain name as the first argument. (Optional: subdomain as second argument)"
+  exit 1
+fi
 
-if [ $# -lt 1 ]
-then
-	echo "*** Provide domain name ***"
-elif [ $# -eq 1 ]
-then
-	domain_check "$1";
+# Check for single or double arguments
+if [ $# -eq 1 ]; then
+  display_subdomain_info "$1"
 else
-	subdomain_check "$1" "$2";
+  display_subdomain_info "$1" "$2"
 fi
