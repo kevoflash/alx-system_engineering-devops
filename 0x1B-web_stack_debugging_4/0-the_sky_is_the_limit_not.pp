@@ -1,8 +1,8 @@
-# manifest file: 0-the_sky_is_the_limit_solved.pp
-# increase the open file limit for Nginx using the exec resource:
-
-exec { 'fix--for-nginx':
-  onlyif  => 'test -e /etc/default/nginx',
-  command => 'sed -i "5s/[0-9]\+/$( ulimit -n )/" /etc/default/nginx; service nginx restart',
-  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+# Changes the limitations on the holberton user
+exec { 'change-os-configuration-for-holberton-user':
+  command => "bash -c \"sed -iE 's/^holberton hard nofile \
+5/holberton hard nofile 88888/' /etc/security/limits.conf; \
+sed -iE 's/^holberton soft nofile \
+4/holberton soft nofile 88888/' /etc/security/limits.conf\"",
+  path    => '/usr/bin:/usr/sbin:/bin'
 }
