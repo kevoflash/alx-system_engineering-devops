@@ -1,1 +1,37 @@
-https://www.linkedin.com/pulse/what-happens-when-you-type-googlecom-your-browser-press-kelvin-munene
+The following steps typically occur:
+
+
+
+DNS Resolution: The browser first needs to resolve the domain name "google.com" to its corresponding IP address. It sends a DNS (Domain Name System) request to a DNS resolver or the DNS server configured on your computer.
+
+
+
+DNS Lookup: The DNS resolver looks up the IP address associated with "google.com" in its database. If it doesn't have the information cached, it recursively queries authoritative DNS servers in the domain name's hierarchy until it finds the IP address for "google.com."
+
+
+
+IP Address Retrieval: Once the DNS resolver obtains the IP address for "google.com" (e.g., 216.58.200.110), it sends it back to your browser.
+
+
+
+HTTP Request: Your browser now forms an HTTP (Hypertext Transfer Protocol) request to the IP address obtained from the DNS resolution. The request method is typically a GET request, and the target URL is "http://google.com/".
+
+
+
+Server Processing: The HTTP request reaches Google's web servers located at the IP address. The web servers process the request and generate an HTTP response containing the requested web page (usually the Google homepage).
+
+
+
+HTTP Response: Google's web servers send the HTTP response (containing the HTML, CSS, JavaScript, and other resources) back to your browser.
+
+
+
+Rendering: Your browser receives the HTTP response and starts rendering the web page content. It parses the HTML, loads external resources (like images and scripts), and displays the web page on your screen.
+
+
+
+Interaction: You can now interact with the Google homepage, perform searches, click on links, or access other features provided by the web page.
+
+
+
+In summary, when you type "google.com" in your browser and press enter, a series of steps are initiated, including DNS resolution, HTTP request, server processing, and rendering, which ultimately results in the display of the Google homepage on your browser.
